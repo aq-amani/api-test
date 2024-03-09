@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db/audio_service?sslmode=disable"
+    # add delay to make sure db is up and running before app connects
+    command: sh -c "sleep 10 && ./main"
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: audio_service
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
