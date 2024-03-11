@@ -4,10 +4,6 @@ A simple backend service that can store and retrieve audio recordings associated
 
 ## prerequisites
 - docker
-```
-go get -u github.com/gin-gonic/gin
-go get -u github.com/lib/pq
-```
 
 ## Running the service
 
